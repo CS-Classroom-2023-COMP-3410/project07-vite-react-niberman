@@ -7,35 +7,30 @@ function HomePage({ onNavigate }) {
     const [message, setMessage] = useState('Welcome to our React application!');
     const [showFeatures, setShowFeatures] = useState(false);
 
-    // Sample data for feature cards
-    const features = [
-        {
-            title: 'Multi-Page Navigation',
-            description: 'Navigate between pages without reloads',
-            imageUrl: 'https://via.placeholder.com/300x150?text=Navigation'
-        },
-        {
-            title: 'Reusable Components',
-            description: 'Components that can be used across different pages',
-            imageUrl: 'https://via.placeholder.com/300x150?text=Components'
-        },
-        {
-            title: 'State Management',
-            description: 'Managing state and passing data between components',
-            imageUrl: 'https://via.placeholder.com/300x150?text=State'
-        }
-    ];
-
-    // Handle counter value changes
+    // Callback function for Counter — child-to-parent communication
     const handleCountChange = (newCount) => {
-        if (newCount === 5) {
-            setMessage('You reached 5! Great job!');
-        } else if (newCount === 10) {
-            setMessage('Wow! You reached 10!');
-        } else if (newCount === 0) {
-            setMessage('Counter reset to zero.');
+        if (newCount > 5) {
+            setMessage(`Counter is getting high: ${newCount}!`);
+        } else {
+            setMessage('Welcome to our React application!');
         }
     };
+
+    // Features data for Card components
+    const features = [
+        {
+            title: 'Component Reuse',
+            description: 'Build reusable UI components that can be shared across pages.'
+        },
+        {
+            title: 'Props & State',
+            description: 'Pass data via props and manage local state with useState.'
+        },
+        {
+            title: 'Side Effects',
+            description: 'Use useEffect for data fetching, event listeners, and more.'
+        }
+    ];
 
     return (
         <div>
@@ -74,7 +69,6 @@ function HomePage({ onNavigate }) {
                                 key={index}
                                 title={feature.title}
                                 description={feature.description}
-                                imageUrl={feature.imageUrl}
                                 actions={[
                                     {
                                         label: 'Learn More',

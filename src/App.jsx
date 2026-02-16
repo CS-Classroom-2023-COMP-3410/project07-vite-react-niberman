@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import Header from './components/Header';
-import HomePage from './components/HomePage';
-import ProductsPage from './components/ProductsPage';
-import ProfilePage from './components/ProfilePage';
+import HomePage from './pages/HomePage';
+import ProductsPage from './pages/ProductsPage';
+import ProfilePage from './pages/ProfilePage';
 import ShoppingCart from './components/ShoppingCart';
 import CartPage from './pages/CartPage';
 
@@ -10,7 +10,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [cart, setCart] = useState([]);
   
-  // Products state lifted to App
+  // Products state lifted to App level so it can be shared across pages
   const initialProducts = [
       {
           id: 1,
@@ -18,7 +18,7 @@ function App() {
           description: 'Latest model with advanced features',
           price: 699,
           stock: 15,
-          imageUrl: 'https://via.placeholder.com/300x150?text=Smartphone'
+          
       },
       {
           id: 2,
@@ -26,7 +26,6 @@ function App() {
           description: 'Powerful laptop for work and gaming',
           price: 1299,
           stock: 8,
-          imageUrl: 'https://via.placeholder.com/300x150?text=Laptop'
       },
       {
           id: 3,
@@ -34,7 +33,6 @@ function App() {
           description: 'Noise-cancelling wireless headphones',
           price: 249,
           stock: 23,
-          imageUrl: 'https://via.placeholder.com/300x150?text=Headphones'
       },
       {
           id: 4,
@@ -42,13 +40,13 @@ function App() {
           description: 'Fitness tracking and notifications',
           price: 199,
           stock: 12,
-          imageUrl: 'https://via.placeholder.com/300x150?text=Smartwatch'
       }
   ];
 
   const [products, setProducts] = useState(initialProducts);
 
-  const navigate = (page) => {
+  // Simple navigation state management
+  const handleNavigate = (page) => {
     setCurrentPage(page);
   };
 
@@ -104,7 +102,7 @@ function App() {
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <HomePage onNavigate={navigate} />;
+        return <HomePage onNavigate={handleNavigate} />;
       case 'products':
         return <ProductsPage 
                   products={products}
@@ -121,14 +119,14 @@ function App() {
                     onCheckout={confirmCheckout}
                 />;
       default:
-        return <HomePage onNavigate={navigate} />;
+        return <HomePage onNavigate={handleNavigate} />;
     }
   };
 
   return (
-    <div>
-      <Header currentPage={currentPage} onNavigate={navigate} cartCount={cart.reduce((total, item) => total + item.quantity, 0)} />
-      <main style={{ padding: '20px', paddingBottom: '100px' }}>
+    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
+      <Header currentPage={currentPage} onNavigate={handleNavigate} cartCount={cart.reduce((total, item) => total + item.quantity, 0)} />
+      <main>
         {renderPage()}
       </main>
 
@@ -143,6 +141,16 @@ function App() {
              />
         </div>
       )}
+
+      <footer style={{
+        marginTop: '50px',
+        padding: '20px',
+        borderTop: '1px solid #eee',
+        textAlign: 'center',
+        color: '#666'
+      }}>
+        <p>React Multi-Page Application</p>
+      </footer>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import Button from './Button';
 
-function Card({ title, description, imageUrl, actions = [] }) {
+function Card({ title, description, imageUrl, actions = [], children }) {
   return (
     <div style={{
       border: '1px solid #ddd',
@@ -19,6 +19,8 @@ function Card({ title, description, imageUrl, actions = [] }) {
 
       <h3 style={{ marginTop: '10px' }}>{title}</h3>
       <p>{description}</p>
+
+      {children}
 
       {actions.length > 0 && (
         <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>

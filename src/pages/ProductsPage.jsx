@@ -34,6 +34,7 @@ function ProductsPage({ products, addToCart, cart }) {
 
                 <div>
                     <strong>Cart ({cart.reduce((total, item) => total + item.quantity, 0)} items)</strong>
+                   
                 </div>
             </div>
 
@@ -45,7 +46,6 @@ function ProductsPage({ products, addToCart, cart }) {
                             key={product.id}
                             title={product.title}
                             description={`${product.description} - $${product.price}`}
-                            imageUrl={product.imageUrl}
                             actions={[
                                 {
                                     label: `Add to Cart ($${product.price})`,

@@ -100,7 +100,6 @@ function ProfilePage() {
                     <Card
                         title={userProfile.name}
                         description={userProfile.bio}
-                        imageUrl="https://via.placeholder.com/150"
                         actions={[
                             {
                                 label: 'Edit Profile',
